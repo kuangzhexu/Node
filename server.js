@@ -32,13 +32,14 @@ function get_movie_po(url,settings,res) {
         var temp = [];
         var img_base = "https://image.tmdb.org/t/p/original"
         for (item of json.results){
-            if ((item.poster_path === undefined || item.poster_path === null)){
+            if (item.poster_path === undefined || item.poster_path === null || item.backdrop_path === undefined || item.backdrop_path === null){
                 img_base = "../img.png";
             }else{
                 c += 1;
                 img_base = "https://image.tmdb.org/t/p/original" + item.poster_path;
+                var img_ba = "https://image.tmdb.org/t/p/original" + item.backdrop_path;
                 var name = item.title.split('"').join('\\"').split(/\n/g).join('\\n').split(/\r/g).join('\\r').split(/\t/g).join('\\t');
-                multi_re = '{ "id": '+item.id+', "name": '+'"'+name+'"'+', "media_type": "movie"'+ ', "img":' + '"' +img_base + '"' +' }';
+                multi_re = '{ "id": '+item.id+', "name": '+'"'+name+'"'+', "media_type": "movie"'+ ', "img":' + '"' +img_base + '"'+', "img_ba":' + '"' +img_ba + '"' +' }';
                 var obj = JSON.parse(multi_re);
                 // console.log('m_po');
                 temp.push(obj);
@@ -72,13 +73,14 @@ function get_tv_po(url,settings,res) {
         var temp = [];
         var img_base = "https://image.tmdb.org/t/p/original";
         for (item of json.results){
-            if ((item.poster_path === undefined || item.poster_path === null)){
+            if (item.poster_path === undefined || item.poster_path === null || item.backdrop_path === undefined || item.backdrop_path === null){
                 img_base = "../img.png";
             }else{
                 c += 1;
                 img_base = "https://image.tmdb.org/t/p/original" + item.poster_path;
+                var img_ba = "https://image.tmdb.org/t/p/original" + item.backdrop_path;
                 var name = item.name.split('"').join('\\"').split(/\n/g).join('\\n').split(/\r/g).join('\\r').split(/\t/g).join('\\t');
-                multi_re = '{ "id": '+item.id+', "name": '+'"'+name+'"'+', "media_type": "tv"'+ ', "img":' + '"' +img_base + '"' +' }';
+                multi_re = '{ "id": '+item.id+', "name": '+'"'+name+'"'+', "media_type": "tv"'+ ', "img":' + '"' +img_base + '"'+', "img_ba":' + '"' +img_ba + '"' +' }';
                 // console.log(multi_re);
                 var obj = JSON.parse(multi_re);
                 temp.push(obj);
